@@ -1,0 +1,10 @@
+<h2>Product Detail</h2>
+
+<button class="btn btn-primary" (click)="onDisplayDetailClick()">Display details</button>
+<p *ngIf="showParagraphIsEnable">
+Follow your dreams and never give up.
+</p>
+<ul *ngFor="let counterValue of counterList">
+  <option [ngStyle]="{backgroundColor: counterValue > 4 ? 'blue' : 'transparent'}"
+          [ngClass]="{whiteLetter: counterValue > 4}">{{counterValue}}<option>
+</ul>

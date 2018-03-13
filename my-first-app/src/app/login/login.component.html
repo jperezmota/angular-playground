@@ -1,0 +1,4 @@
+<input class="form-control" type="text" (input)="onUsernameChange()" [(ngModel)] = "username"/>
+<button class="btn btn-primary" (click)="onLogin()" [disabled] = "loginButtonDisabled">Login</button>
+<br>
+{{ username }}
