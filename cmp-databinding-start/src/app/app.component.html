@@ -1,8 +1,11 @@
 <div class="container">
-  <app-cockpit></app-cockpit>
+  <!-- Implementing custom serverCreated event of app-cockpit to create communitation between the cockpit component to app component-->
+  <app-cockpit
+     (serverCreated)="onServerAdded($event)" (bpCreated)="onBlueprintAdded($event)"></app-cockpit>
   <hr>
   <div class="row">
     <div class="col-xs-12">
+      <!-- Passing data to the child component (server-element) property (srvElement).-->
       <app-server-element *ngFor="let serverElement of serverElements" [srvElement]="serverElement"></app-server-element>
     </div>
   </div>
