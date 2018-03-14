@@ -6,7 +6,14 @@
   <div class="row">
     <div class="col-xs-12">
       <!-- Passing data to the child component (server-element) property (srvElement).-->
-      <app-server-element *ngFor="let serverElement of serverElements" [srvElement]="serverElement"></app-server-element>
+      <app-server-element *ngFor="let serverElement of serverElements" [srvElement]="serverElement">
+        <!-- Passing content to the be projected inside the component using <ng-content> directive. -->
+        <p>
+          <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
+          <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
+        </p>
+      </app-server-element>
+
     </div>
   </div>
 </div>
