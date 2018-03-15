@@ -5,10 +5,14 @@
   <hr>
   <div class="row">
     <div class="col-xs-12">
+      <button class="btn btn-primary" (click)="onChangeFirst()">Change first element</button>
+      <button class="btn btn-danger" (click)="onDestroyFirst()">Destroy first Componenet</button>
       <!-- Passing data to the child component (server-element) property (srvElement).-->
-      <app-server-element *ngFor="let serverElement of serverElements" [srvElement]="serverElement">
+      <app-server-element *ngFor="let serverElement of serverElements"
+                          [srvElement]="serverElement"
+                          [name]="serverElement.name">
         <!-- Passing content to the be projected inside the component using <ng-content> directive. -->
-        <p>
+        <p #contentParagraph>
           <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
           <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
         </p>
