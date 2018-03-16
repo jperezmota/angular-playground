@@ -1,25 +1,26 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { LogginService } from 'app/login.service';
+import { AccountsService } from 'app/accounts.service';
 
 @Component({
   selector: 'app-new-account',
   templateUrl: './new-account.component.html',
   styleUrls: ['./new-account.component.css'],
-  providers: [LogginService]
+  //providers: [LogginService]
 })
 export class NewAccountComponent {
-  @Output() accountAdded = new EventEmitter<{name: string, status: string}>();
 
   // The property type must be specified for the service.
-  constructor(private logginService: LogginService){}
+  constructor(private logginService: LogginService, private accountsService: AccountsService){
+
+    this.accountsService.statusUpdated.subscribe(
+      (status: string) => alert('New Status: ' + status)
+    );
+
+  }
 
   onCreateAccount(accountName: string, accountStatus: string) {
-    this.accountAdded.emit({
-      name: accountName,
-      status: accountStatus
-    });
-
-    this.logginService.logStatusChange(accountStatus);
-
+    this.accountsService.addAccount(accountName, accountStatus);
+  //  this.logginService.logStatusChange(accountStatus);
   }
 }
