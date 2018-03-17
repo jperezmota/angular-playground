@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ServersService } from '../servers.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-server',
@@ -12,9 +13,20 @@ export class EditServerComponent implements OnInit {
   serverName = '';
   serverStatus = '';
 
-  constructor(private serversService: ServersService) { }
+  constructor(private serversService: ServersService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    console.log(this.route.snapshot.queryParams);
+    console.log(this.route.snapshot.fragment);
+
+    /* same as the params subscription, we also have the queryParams and fragment subscription.
+      We need to implement the row function in the subscriber, but we have dont yet.
+    */
+    this.route.queryParams.subscribe();
+    this.route.fragment.subscribe();
+
+
     this.server = this.serversService.getServer(1);
     this.serverName = this.server.name;
     this.serverStatus = this.server.status;
