@@ -41,6 +41,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
+    // RouterModule.forRoot(appRoutes, {useHash: true})
     RouterModule.forRoot(appRoutes)
   ],
   /*This are the things that will be accesable for others modules that use this AppRoutingModule.
