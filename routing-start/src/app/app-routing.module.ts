@@ -7,6 +7,7 @@ import { ServersComponent } from "./servers/servers.component";
 import { EditServerComponent } from "./servers/edit-server/edit-server.component";
 import { ServerComponent } from "./servers/server/server.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { AuthGuard } from "./auth-guard.service";
 
 /*
   Constant for configure all the routes the app will be using.
@@ -17,7 +18,12 @@ const appRoutes: Routes = [
   {path: 'users', component: UsersComponent, children: [
     {path: ':id/:name', component: UserComponent}
   ]},
-  {path: 'servers', component: ServersComponent, children: [
+  // The AuthGuard will be applied to the childs to automatically.
+  {path: 'servers',
+   component: ServersComponent,
+   // canActivate: [AuthGuard],
+   canActivateChild: [AuthGuard],
+   children: [
     {path: ':id', component: ServerComponent},
     {path: ':id/edit', component: EditServerComponent}
   ]},
