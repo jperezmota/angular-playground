@@ -11,23 +11,9 @@ import { UserComponent } from './users/user/user.component';
 import { EditServerComponent } from './servers/edit-server/edit-server.component';
 import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AppRoutingModule } from './app-routing.module';
 
-import { Routes, RouterModule } from '@angular/router';
-
-/*
-  Constant for configure all the routes the app will be using.
-  The first with the empty string is for the case when the user do not put any resource. For example just localhost:4200
-*/
-const appRoutes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'users', component: UsersComponent, children: [
-    {path: ':id/:name', component: UserComponent}
-  ]},
-  {path: 'servers', component: ServersComponent, children: [
-    {path: ':id', component: ServerComponent},
-    {path: ':id/edit', component: EditServerComponent}
-  ]}
-];
 
 @NgModule({
   declarations: [
@@ -37,13 +23,15 @@ const appRoutes: Routes = [
     ServersComponent,
     UserComponent,
     EditServerComponent,
-    ServerComponent
+    ServerComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    
+    AppRoutingModule
   ],
   providers: [ServersService],
   bootstrap: [AppComponent]
