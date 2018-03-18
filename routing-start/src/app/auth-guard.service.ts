@@ -4,6 +4,10 @@ import { Injectable } from "@angular/core";
 import { AuthService } from "./auth.service";
 
 @Injectable()
+/*
+We are applying both interfaces CanActivate and CanActivateChild to allow
+apply this Guard either to the Parent Route or Child Routes.
+*/
 export class AuthGuard implements CanActivate, CanActivateChild{
 
   constructor(private authService: AuthService, private router: Router){
@@ -11,7 +15,7 @@ export class AuthGuard implements CanActivate, CanActivateChild{
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-
+    // Simulating a fake authentication.
     return this.authService.isAuthenticated().then(
       (authenticated: boolean) => {
         if(authenticated){

@@ -9,6 +9,7 @@ import { ServerComponent } from "./servers/server/server.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { AuthGuard } from "./auth-guard.service";
 import { CanDeactivateGuard } from "./servers/edit-server/can-deactivate-guard.service";
+import { ErrorPageComponent } from "./error-page/error-page.component";
 
 /*
   Constant for configure all the routes the app will be using.
@@ -22,13 +23,14 @@ const appRoutes: Routes = [
   // The AuthGuard will be applied to the childs to automatically.
   {path: 'servers',
    component: ServersComponent,
-   // canActivate: [AuthGuard],
-   canActivateChild: [AuthGuard],
+   // canActivate: [AuthGuard], // Applying the guard to the parent
+   canActivateChild: [AuthGuard], //Applying the guard just to the childs component and not the parent
    children: [
     {path: ':id', component: ServerComponent},
     {path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard]}
   ]},
-  {path:"not-found", component: PageNotFoundComponent},
+  // {path:"not-found", component: PageNotFoundComponent},
+  {path:"not-found", component: ErrorPageComponent, data: {message: 'Page not found.'}},
   /* ** Any url that are no the above declared, will rediret no /not-found.
      Important: This path must be the last one declared to avoid conflicts with the above paths.
   */

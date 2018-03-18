@@ -20,6 +20,17 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
 
   constructor(private serversService: ServersService, private route: ActivatedRoute, private router: Router) { }
 
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean{
+    if(!this.allowEdit){
+      return true;
+    }
+    if((this.serverName !== this.server.name || this.serverStatus !== this.server.status) && !this.changesSaved){
+      confirm('Do you want to discard the changes?')
+    }else{
+      return true;
+    }
+  }
+  
   ngOnInit() {
 
     console.log(this.route.snapshot.queryParams);
@@ -46,17 +57,6 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
     this.serversService.updateServer(this.server.id, {name: this.serverName, status: this.serverStatus});
     this.changesSaved = true;
     this.router.navigate(['../'], {relativeTo: this.route});
-  }
-
-  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean{
-    if(!this.allowEdit){
-      return true;
-    }
-    if((this.serverName !== this.server.name || this.serverStatus !== this.server.status) && !this.changesSaved){
-      confirm('Do you want to discard the changes?')
-    }else{
-      return true;
-    }
   }
 
 }
