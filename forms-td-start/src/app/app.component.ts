@@ -13,6 +13,16 @@ export class AppComponent {
   answer = '';
   genders = ['male', 'female']
 
+  user = {
+    username: '',
+    email: '',
+    secretQuestion: '',
+    answer: '',
+    gender: ''
+  }
+
+  submitted = false;
+
   suggestUserName() {
     const suggestedName = 'Superuser';
     /* #1. setValue() Approach: Setting all the forms value input. The object properties must match with their input names and group
@@ -49,6 +59,14 @@ export class AppComponent {
 
   onSubmit(){
     console.log(this.signupForm);
+
+    this.submitted = true;
+    
+    this.user.username = this.signupForm.value.userData.username;
+    this.user.email = this.signupForm.value.userData.email;
+    this.user.secretQuestion = this.signupForm.value.secret;
+    this.user.answer = this.signupForm.value.questionAnswer;
+    this.user.gender = this.signupForm.value.gender;
   }
 
 }
