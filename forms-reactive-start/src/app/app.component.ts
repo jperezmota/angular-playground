@@ -20,7 +20,7 @@ export class AppComponent implements OnInit{
           {
             // the first argument of FormControl is the default value of the html element. The second is the validations.
             'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
-            'email': new FormControl(null, [Validators.required, Validators.email])
+            'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmail.bind(this) )
           }
         ),
         'gender': new FormControl('male'),
@@ -28,6 +28,23 @@ export class AppComponent implements OnInit{
         'hobbies': new FormArray([])
       }
     );
+
+  }
+
+
+  //Custom validator for asynchronous validator. Simulating a call to a back-end app through a web service.
+  forbiddenEmail(control: FormControl){
+    const promise = new Promise<any>((resolve, reject) => {
+      setTimeout(()=>{
+        if(control.value === 'test@test.com'){
+          resolve({'emailIsForbidden': true});
+        }else{
+          resolve(null);
+        }
+      }, 1500);
+    });
+
+    return promise;
   }
 
   onSubmit(){
@@ -40,10 +57,13 @@ export class AppComponent implements OnInit{
     (<FormArray>this.signupForm.get('hobbies')).push(control);
   }
 
+  //Custom validator for synchronoues validation.
   forbiddenNames(control: FormControl): {[s:string] : boolean}{
     if(this.forbiddenUsernames.indexOf(control.value) !== -1){
       return {'nameIsForbidden': true};
     }
     return null; //If the validation is successful is must return NULL or return Nothing. So if we want can remove this line.
   }
+
+
 }
