@@ -18,7 +18,15 @@
               <!-- A way to access form elemenet status-->
               <span class="help-block"
                     *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched">
-                    Please enter a valid username
+                    This field is required.
+
+                    <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">
+                      This name is Invalid
+                    </span>
+
+                    <span *ngIf="signupForm.get('userData.username').errors['required']">
+                      This field is required
+                    </span>
               </span>
           </div>
           <div class="form-group">
@@ -61,7 +69,7 @@
               Please enter a valid data.
         </span>
 
-        <button [disabled]="!signupForm.valid" class="btn btn-primary" type="submit">Submit</button>
+        <button  class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
   </div>
