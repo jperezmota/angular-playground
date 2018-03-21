@@ -15,11 +15,14 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.signupForm = new FormGroup(
       {
-        // the first argument of FormControl is the default value of the html element. The second is the validations.
-        'username': new FormControl(null, Validators.required),
-        'email': new FormControl(null, [Validators.required, Validators.email]),
+        'userData': new FormGroup(
+          {
+            // the first argument of FormControl is the default value of the html element. The second is the validations.
+            'username': new FormControl(null, Validators.required),
+            'email': new FormControl(null, [Validators.required, Validators.email])
+          }
+        ),
         'gender': new FormControl('male')
-
       }
     );
   }
