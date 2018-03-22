@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response } from "@angular/http";
 import "rxjs/Rx"; // Imported to use all the observable operator and so be able to use the map below.
+import { Observable } from "rxjs/Rx";
 
 //Adding @Injectable decorator cause in this service we are injecting another service in the constructor, called Http.
 @Injectable()
@@ -36,7 +37,7 @@ export class ServerService{
     into another observable and return that obsersable. http://reactivex.io/documentation/operators/map.html
   */
   getServers(){
-    return this.http.get('https://udemy-ng-http-96a12.firebaseio.com/data.json')
+    return this.http.get('https://udemy-ng-http-96a12.firebaseio.com/data')
                     .map(
                       (response: Response) => {
                         const data = response.json();
@@ -44,6 +45,17 @@ export class ServerService{
                           server.name = "FETCHED_" + server.name;
                         }
                         return data;
+                      }
+                    )
+                    // We use Catch to catch any error with the request.
+                    .catch(
+                      (error: Response)=>{
+                        /*
+                          We need to return an Observable because the following reasons:
+                            1. The catch by default doesn't return and observable.
+                            2. Our component subscribed is waiting an Observable.
+                        */
+                        return Observable.throw("Something went wrong.");
                       }
                     );
   }
