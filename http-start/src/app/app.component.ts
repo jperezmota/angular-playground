@@ -8,6 +8,13 @@ import { Response } from '@angular/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  /*
+    Here we are not subscribing to observable returned by getAppName as we did it on the others methods (storeServers, getServers...)
+    this because we are using in the html we are use async pipe.
+  */
+  appName = this.serverService.getAppName();
+
   servers = [
     {
       name: 'Testserver',
