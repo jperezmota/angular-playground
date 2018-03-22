@@ -40,6 +40,27 @@ export class AppComponent implements OnInit{
         console.log(value);
       }
     );
+
+    //Setting default values to the whole form.
+    this.signupForm.setValue(
+      {
+        'userData': {
+          'username': 'Max',
+          'email': 'test@test.com'
+        },
+        'gender': 'male',
+        'hobbies': []
+      }
+    );
+
+    //Setting to specific element of the form through Patch
+    this.signupForm.patchValue(
+      {
+        'userData': {
+          'username': 'Anna'
+        }
+      }
+    );
   }
 
 
@@ -60,6 +81,7 @@ export class AppComponent implements OnInit{
 
   onSubmit(){
     console.log(this.signupForm);
+    this.signupForm.reset();
   }
 
   //For dinamically adding custom input element to our existing form.
