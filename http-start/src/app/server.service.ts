@@ -33,13 +33,16 @@ export class ServerService{
 
   /*
     map is a observable operator. This operator wraps the returned data, transforms it and put the transformed data
-    into another observable and return that obsersable.
+    into another observable and return that obsersable. http://reactivex.io/documentation/operators/map.html
   */
   getServers(){
     return this.http.get('https://udemy-ng-http-96a12.firebaseio.com/data.json')
                     .map(
                       (response: Response) => {
                         const data = response.json();
+                        for(const server of data){
+                          server.name = "FETCHED_" + server.name;
+                        }
                         return data;
                       }
                     );
