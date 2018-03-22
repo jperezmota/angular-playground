@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers} from "@angular/http";
+import { Http, Headers, Response } from "@angular/http";
+import "rxjs/Rx"; // Imported to use all the observable operator and so be able to use the map below.
 
 //Adding @Injectable decorator cause in this service we are injecting another service in the constructor, called Http.
 @Injectable()
@@ -31,10 +32,16 @@ export class ServerService{
   }
 
   /*
-    map is a observable operator. What it does is wrap the returned data transforms it and put the transformed data
+    map is a observable operator. This operator wraps the returned data, transforms it and put the transformed data
     into another observable and return that obsersable.
   */
   getServers(){
-    return this.http.get('https://udemy-ng-http-96a12.firebaseio.com/data.json');
+    return this.http.get('https://udemy-ng-http-96a12.firebaseio.com/data.json')
+                    .map(
+                      (response: Response) => {
+                        const data = response.json();
+                        return data;
+                      }
+                    );
   }
 }
