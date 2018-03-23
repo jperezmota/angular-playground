@@ -3,6 +3,7 @@ import { Subject } from "rxjs/Subject";
 
 export class ShoppingListService{
   ingredientsChanged = new Subject<Ingredient[]>();
+  startedEditing = new Subject<number>();
 
   private ingredients: Ingredient[] = [
     new Ingredient('Apple', 5),
@@ -11,6 +12,10 @@ export class ShoppingListService{
 
   getIngredients(){
     return this.ingredients.slice();
+  }
+
+  getIngridient(index: number){
+    return this.ingredients[index];
   }
 
   addIngredient(ingredient: Ingredient){
@@ -31,6 +36,16 @@ export class ShoppingListService{
       2nd Aproach: Use Spread operator that is a feature of ES6. It converts an Array of elements to a List of elements.
     */
     this.ingredients.push(...ingredients);
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
+  updateIngredient(index: number, newIngredient: Ingredient){
+    this.ingredients[index] = newIngredient;
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
+  deleteIngredient(index: number){
+    this.ingredients.splice(index, 1);
     this.ingredientsChanged.next(this.ingredients.slice());
   }
 }
