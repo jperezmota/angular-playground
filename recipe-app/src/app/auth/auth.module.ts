@@ -18,8 +18,7 @@ import { AuthGuard } from "./auth-guard.service";
   imports:[
     FormsModule,
     AuthRoutingModule
-  ],
-  providers: [ShoppingListService, RecipeService, DataStorageService, AuthService, AuthGuard],
+  ]
 })
 export class AuthModule{
 
