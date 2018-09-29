@@ -8,3 +8,7 @@
 A list of Angular's projects that I created to practice and learn the core concepts of the framework from creating your first project to building a Recipe App consolidating your knowledge (components, directives, services, modules, ngrx, http, routes, form, etc).
 
 Fork it, tweak the files, practice and learn!
+
+## Contact me
+
+Feel free to contact me if you need any help! jonathanperezmota@gmail.com
